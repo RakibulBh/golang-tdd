@@ -1,25 +1,55 @@
 package shapes
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{10.0, 10.0}
+	t.Run("test rectangle perimeter", func(t *testing.T) {
+		rectangle := Rectangle{10.0, 10.0}
 
-	got := Perimeter(rectangle)
-	want := 40.0
+		got := rectangle.Perimeter()
+		want := 40.0
 
-	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
-	}
+		assertCorrectMessage(t, got, want)
+	})
+
+	t.Run("test circle perimeter", func(t *testing.T) {
+		circle := Circle{10.0}
+
+		got := circle.Perimeter()
+		want := 20 * math.Pi
+
+		assertCorrectMessage(t, got, want)
+	})
+
 }
 
 func TestArea(t *testing.T) {
-	rectangle := Rectangle{10.0, 10.0}
 
-	got := Area(rectangle)
-	want := 100.0
+	checkArea := func(t testing.TB, shape Shape, want float64) {
+		t.Helper()
+		got := shape.Area()
+		if got != want {
+			t.Errorf("got %g want %g", got, want)
+		}
+	}
 
-	assertCorrectMessage(t, got, want)
+	t.Run("test rectangle area", func(t *testing.T) {
+		rectangle := Rectangle{10.0, 10.0}
+		want := 100.0
+
+		checkArea(t, &rectangle, want)
+	})
+
+	t.Run("test circle area", func(t *testing.T) {
+		circle := Circle{10}
+		want := 314.1592653589793
+
+		checkArea(t, &circle, want)
+	})
+
 }
 
 func assertCorrectMessage(t *testing.T, got, want float64) {
