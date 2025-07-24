@@ -15,6 +15,11 @@ type Circle struct {
 	Radius float64
 }
 
+type Triangle struct {
+	Base   float64
+	Height float64
+}
+
 // Calculate the perimeter of a rectangle
 func (s *Rectangle) Perimeter() float64 {
 	return 2 * (s.Height + s.Width)
@@ -33,4 +38,9 @@ func (s *Circle) Perimeter() float64 {
 // Calculate the area of a circle
 func (s *Circle) Area() float64 {
 	return math.Pi * math.Pow(s.Radius, 2)
+}
+
+// calculate area of triangle
+func (t Triangle) Area() float64 {
+	return (t.Base * t.Height) * 0.5
 }
